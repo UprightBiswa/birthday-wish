@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import { PlaceHolderImages, type ImagePlaceholder } from '@/lib/placeholder-images';
@@ -10,8 +10,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { PartyPopper, Music, MusicOff } from 'lucide-react';
+import { Skeleton } from '@/components/ui/skeleton';
 
-export default function WishPageContent() {
+function WishPageContentInternal() {
     const searchParams = useSearchParams();
     const name = searchParams.get('name') || 'Guest';
     const age = parseInt(searchParams.get('age') || '0', 10);
@@ -97,4 +98,27 @@ export default function WishPageContent() {
             )}
         </div>
     );
+}
+
+function LoadingFallback() {
+    return (
+        <div className="flex min-h-screen items-center justify-center bg-background">
+            <div className="flex flex-col items-center gap-4">
+                <Skeleton className="h-12 w-12 rounded-full" />
+                <div className="space-y-2 text-center">
+                    <Skeleton className="h-4 w-[250px]" />
+                    <Skeleton className="h-4 w-[200px]" />
+                </div>
+                <Skeleton className="h-10 w-[150px]" />
+            </div>
+        </div>
+    )
+}
+
+export default function WishPageContent() {
+    return (
+        <Suspense fallback={<LoadingFallback/>}>
+            <WishPageContentInternal/>
+        </Suspense>
+    )
 }

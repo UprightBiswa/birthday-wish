@@ -1,125 +1,98 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { CakeSlice, Gift } from "lucide-react";
-
-const formSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters long."),
-  age: z.coerce.number().int().positive("Please enter a valid age."),
-  message: z.string().min(10, "Message should be at least 10 characters."),
-});
+import React, { useState, useEffect, useMemo } from 'react';
+import Image from 'next/image';
+import { PlaceHolderImages, type ImagePlaceholder } from '@/lib/placeholder-images';
+import AudioPlayer from '@/components/audio-player';
+import ConfettiDisplay from '@/components/confetti-display';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { PartyPopper, Music, MusicOff } from 'lucide-react';
 
 export default function Home() {
-  const router = useRouter();
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "Rupali Das",
-      age: 30,
-      message: "Many many happy returns of the day! Wishing you all the best on your special day. 🎉",
-    },
-  });
+    const name = 'Rupali Das';
+    const age = 30;
+    const message = "Many many happy returns of the day! Wishing you all the best on your special day. 🎉";
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    const params = new URLSearchParams({
-      name: values.name,
-      age: values.age.toString(),
-      message: values.message,
-    });
-    router.push(`/wish?${params.toString()}`);
-  }
+    const [celebrationStarted, setCelebrationStarted] = useState(false);
+    const [audioOn, setAudioOn] = useState(true);
+    const [images, setImages] = useState<{ bg: ImagePlaceholder | undefined; avatar: ImagePlaceholder | undefined }>({ bg: undefined, avatar: undefined });
 
-  return (
-    <main className="flex min-h-screen w-full flex-col items-center justify-center bg-background p-4">
-      <div className="absolute top-0 left-0 -z-0 h-full w-full bg-gradient-to-br from-primary/20 via-transparent to-accent/20"></div>
-      <Card className="z-10 w-full max-w-lg shadow-2xl">
-        <CardHeader className="text-center">
-          <div className="mb-2 flex items-center justify-center gap-4">
-            <Gift className="h-8 w-8 text-accent" />
-            <CardTitle className="font-headline text-3xl">Birthday Wish Creator</CardTitle>
-            <CakeSlice className="h-8 w-8 text-accent" />
-          </div>
-          <CardDescription>
-            Create a personalized birthday wish with a special touch.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Celebrant's Name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="E.g., Rupali Das" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="age"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Age they are turning</FormLabel>
-                    <FormControl>
-                      <Input type="number" placeholder="E.g., 30" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="message"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Personalized Message</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Share your warm wishes..."
-                        className="resize-none"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <CardFooter className="p-0 pt-6">
-                <Button type="submit" className="w-full" size="lg" disabled={form.formState.isSubmitting}>
-                   {form.formState.isSubmitting ? "Creating..." : "Create Magical Wish"}
-                </Button>
-              </CardFooter>
-            </form>
-          </Form>
-        </CardContent>
-      </Card>
-    </main>
-  );
+    useEffect(() => {
+        setImages({
+            bg: PlaceHolderImages.find(p => p.id === 'birthday-background'),
+            avatar: PlaceHolderImages.find(p => p.id === 'birthday-person-avatar'),
+        });
+    }, []);
+
+    const nameInitials = useMemo(() => {
+        return name.split(' ').map(n => n[0]).join('').toUpperCase();
+    }, [name]);
+
+
+    const handleStart = async () => {
+        setCelebrationStarted(true);
+    };
+
+    return (
+        <div className="relative min-h-screen w-full overflow-hidden">
+            {images.bg && (
+                <Image
+                    src={images.bg.imageUrl}
+                    alt={images.bg.description}
+                    fill
+                    className={`object-cover transition-all duration-1000 ${celebrationStarted ? 'blur-sm brightness-50' : 'blur-md brightness-50'}`}
+                    priority
+                    data-ai-hint={images.bg.imageHint}
+                />
+            )}
+            
+            {!celebrationStarted && (
+                <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 p-4 text-center">
+                    <h1 className="animate-pulse font-headline text-4xl font-bold text-primary-foreground">A special wish is waiting...</h1>
+                    <Button onClick={handleStart} size="lg">
+                        <PartyPopper className="mr-2 h-5 w-5" />
+                        Start the Celebration
+                    </Button>
+                </div>
+            )}
+            
+            {celebrationStarted && (
+                <>
+                    <ConfettiDisplay name={name} age={age} />
+                    <AudioPlayer isPlaying={audioOn} />
+
+                    <div className="absolute inset-0 z-10 flex items-center justify-center p-4">
+                        <Card className="w-full max-w-md animate-in fade-in zoom-in-90 duration-1000 bg-card/80 backdrop-blur-sm">
+                            <CardContent className="flex flex-col items-center p-8 text-center">
+                                <Avatar className="mb-6 h-32 w-32 border-4 border-accent animate-in fade-in zoom-in-75 delay-200 duration-500">
+                                    {images.avatar && (
+                                        <AvatarImage src={images.avatar.imageUrl} alt={name} data-ai-hint={images.avatar.imageHint} />
+                                    )}
+                                    <AvatarFallback className="bg-primary/20 text-4xl">{nameInitials}</AvatarFallback>
+                                </Avatar>
+
+                                <div className="space-y-4 animate-in fade-in slide-in-from-bottom-10 delay-400 duration-700">
+                                    <h2 className="font-headline text-5xl font-bold text-primary-foreground drop-shadow-lg">Happy Birthday!</h2>
+                                    <p className="text-3xl font-semibold text-accent drop-shadow-md">{name}</p>
+                                    <p className="text-xl text-primary-foreground/80">{age} Years of Awesome!</p>
+                                    <p className="pt-4 text-lg leading-relaxed text-primary-foreground/90">
+                                        "{message}"
+                                    </p>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </div>
+
+                    <div className="absolute bottom-4 right-4 z-30">
+                        <Button variant="ghost" size="icon" onClick={() => setAudioOn(prev => !prev)} className="text-primary-foreground hover:bg-white/20 hover:text-white">
+                            {audioOn ? <Music className="h-6 w-6" /> : <MusicOff className="h-6 w-6" />}
+                            <span className="sr-only">Toggle Music</span>
+                        </Button>
+                    </div>
+                </>
+            )}
+        </div>
+    );
 }
