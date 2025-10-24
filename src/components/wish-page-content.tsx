@@ -9,7 +9,7 @@ import ConfettiDisplay from '@/components/confetti-display';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { PartyPopper, Music, MusicOff } from 'lucide-react';
+import { PartyPopper, Music, VolumeX } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 
 function WishPageContentInternal() {
@@ -90,7 +90,7 @@ function WishPageContentInternal() {
 
                     <div className="absolute bottom-4 right-4 z-30">
                         <Button variant="ghost" size="icon" onClick={() => setAudioOn(prev => !prev)} className="text-primary-foreground hover:bg-white/20 hover:text-white">
-                            {audioOn ? <Music className="h-6 w-6" /> : <MusicOff className="h-6 w-6" />}
+                            {audioOn ? <Music className="h-6 w-6" /> : <VolumeX className="h-6 w-6" />}
                             <span className="sr-only">Toggle Music</span>
                         </Button>
                     </div>
