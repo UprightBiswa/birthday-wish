@@ -5,13 +5,9 @@ import { Skeleton } from '@/components/ui/skeleton';
 function LoadingFallback() {
     return (
         <div className="flex min-h-screen items-center justify-center bg-background">
-            <div className="flex flex-col items-center gap-4">
-                <Skeleton className="h-12 w-12 rounded-full" />
-                <div className="space-y-2 text-center">
-                    <Skeleton className="h-4 w-[250px]" />
-                    <Skeleton className="h-4 w-[200px]" />
-                </div>
-                <Skeleton className="h-10 w-[150px]" />
+            <div className="relative w-full h-full flex flex-col items-center justify-center gap-4 text-center p-4">
+                 <h1 className="animate-pulse font-headline text-4xl font-bold text-primary-foreground">A special wish is being created...</h1>
+                 <p className="text-primary-foreground/80">Please wait while we add the magic!</p>
             </div>
         </div>
     )
