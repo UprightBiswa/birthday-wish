@@ -7,39 +7,44 @@ type CountdownTimerProps = {
 };
 
 const CountdownTimer: React.FC<CountdownTimerProps> = ({ targetDate }) => {
-    const calculateTimeLeft = () => {
-        const difference = +targetDate - +new Date();
-        let timeLeft = {};
-
-        if (difference > 0) {
-            timeLeft = {
-                days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-                hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-                minutes: Math.floor((difference / 1000 / 60) % 60),
-                seconds: Math.floor((difference / 1000) % 60),
-            };
-        }
-
-        return timeLeft;
-    };
-
-    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+    const [timeLeft, setTimeLeft] = useState<Record<string, number>>({});
+    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
-        const timer = setTimeout(() => {
+        setIsClient(true);
+    }, []);
+
+
+    useEffect(() => {
+        if (!isClient) return;
+
+        const calculateTimeLeft = () => {
+            const difference = +targetDate - +new Date();
+            let newTimeLeft = {};
+
+            if (difference > 0) {
+                newTimeLeft = {
+                    days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+                    hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                    minutes: Math.floor((difference / 1000 / 60) % 60),
+                    seconds: Math.floor((difference / 1000) % 60),
+                };
+            }
+            return newTimeLeft;
+        };
+        
+        setTimeLeft(calculateTimeLeft());
+
+        const timer = setInterval(() => {
             setTimeLeft(calculateTimeLeft());
         }, 1000);
 
         return () => clearTimeout(timer);
-    });
+    }, [isClient, targetDate]);
 
     const timerComponents: JSX.Element[] = [];
 
     Object.keys(timeLeft).forEach((interval) => {
-        if (!timeLeft[interval as keyof typeof timeLeft] && timeLeft[interval as keyof typeof timeLeft] !== 0) {
-            return;
-        }
-
         timerComponents.push(
             <div key={interval} className="flex flex-col items-center">
                 <span className="text-5xl md:text-7xl font-bold text-primary-foreground drop-shadow-lg">
