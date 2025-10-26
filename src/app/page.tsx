@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
-import { PlaceHolderImages, type ImagePlaceholder } from '@/lib/placeholder-images';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 import AudioPlayer from '@/components/audio-player';
 import Confetti from 'react-confetti';
 import { useWindowSize } from '@/hooks/use-window-size';
@@ -17,21 +17,18 @@ export default function Home() {
     const message = "Many many happy returns of the day! Wishing you all the best on your special day. 🎉";
 
     const [audioOn, setAudioOn] = useState(false);
-    const [images, setImages] = useState<{ bg: ImagePlaceholder | undefined; avatar: ImagePlaceholder | undefined }>({ bg: undefined, avatar: undefined });
     const { width, height } = useWindowSize();
-    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
-        setIsClient(true);
-        setImages({
-            bg: PlaceHolderImages.find(p => p.id === 'birthday-background'),
-            avatar: PlaceHolderImages.find(p => p.id === 'birthday-person-avatar'),
-        });
-        
         // Auto-start music
         const timer = setTimeout(() => setAudioOn(true), 500);
         return () => clearTimeout(timer);
     }, []);
+    
+    const images = {
+        bg: PlaceHolderImages.find(p => p.id === 'birthday-background'),
+        avatar: PlaceHolderImages.find(p => p.id === 'birthday-person-avatar'),
+    };
 
     const nameInitials = useMemo(() => {
         return name.split(' ').map(n => n[0]).join('').toUpperCase();
@@ -50,7 +47,7 @@ export default function Home() {
                 />
             )}
             
-            {isClient && <Confetti width={width} height={height} recycle={true} numberOfPieces={200} />}
+            {width > 0 && height > 0 && <Confetti width={width} height={height} recycle={true} numberOfPieces={200} />}
             <AudioPlayer isPlaying={audioOn} />
 
             <div className="absolute inset-0 z-10 flex items-center justify-center p-4">
