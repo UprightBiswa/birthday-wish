@@ -12,8 +12,8 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Music, VolumeX } from 'lucide-react';
 
 export default function Home() {
-    const name = 'Rupali Das';
-    const age = 30;
+    const name = 'Anisha Sarkar';
+    const age = 9;
     const message = "Many many happy returns of the day! Wishing you all the best on your special day. 🎉";
 
     const [audioOn, setAudioOn] = useState(false);
