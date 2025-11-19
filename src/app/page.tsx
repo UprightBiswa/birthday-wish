@@ -13,10 +13,10 @@ import { Music, VolumeX } from 'lucide-react';
 import CountdownTimer from '@/components/countdown-timer';
 
 export default function Home() {
-    const name = 'Anisha Sarkar';
-    const age = 9;
-    const message = "Many many happy returns of the day! Wishing you all the best on your special day. 🎉";
-    const birthday = new Date('2025-10-27T00:00:00');
+    const name = 'Suman';
+    const age = 10;
+    const message = "Happy Birthday, Suman! Hope you have a fantastic day filled with joy and laughter. 🎂";
+    const birthday = new Date('2025-11-15T00:00:00');
 
     const [isBirthdayTime, setIsBirthdayTime] = useState(false);
     const [audioOn, setAudioOn] = useState(false);
