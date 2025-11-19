@@ -4,9 +4,11 @@ import React, { useState, useEffect } from 'react';
 
 type CountdownTimerProps = {
     targetDate: Date;
+    name: string;
+    age: number;
 };
 
-const CountdownTimer: React.FC<CountdownTimerProps> = ({ targetDate }) => {
+const CountdownTimer: React.FC<CountdownTimerProps> = ({ targetDate, name, age }) => {
     const [timeLeft, setTimeLeft] = useState<Record<string, number>>({});
     const [isClient, setIsClient] = useState(false);
 
@@ -62,7 +64,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ targetDate }) => {
             <h2 className="text-4xl md:text-5xl font-bold text-primary-foreground drop-shadow-lg mb-2">
                 Birthday Countdown
             </h2>
-            <p className="text-xl text-accent mb-8">For Suman's 10th Birthday!</p>
+            <p className="text-xl text-accent mb-8">For {name}'s {age}th Birthday!</p>
             <div className="flex justify-center gap-4 md:gap-8">
                 {timerComponents.length ? timerComponents : <span>Loading...</span>}
             </div>
