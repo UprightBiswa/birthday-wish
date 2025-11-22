@@ -13,10 +13,10 @@ import { Music, VolumeX } from 'lucide-react';
 import CountdownTimer from '@/components/countdown-timer';
 
 export default function Home() {
-    const name = 'Suman Kalyan Mandal';
-    const age = 25;
-    const message = "Happy Birthday, Suman Kalyan Mandal! Hope you have a fantastic day filled with joy and laughter. 🎂";
-    const birthday = new Date('2025-11-15T00:00:00');
+    const name = 'Debolina Modak';
+    const age = 20;
+    const message = "Happy Birthday to the best sister in the world! Wishing you a day as amazing as you are. ❤️";
+    const birthday = new Date('2025-11-23T00:00:00');
 
     const [isBirthdayTime, setIsBirthdayTime] = useState(false);
     const [audioOn, setAudioOn] = useState(false);
@@ -79,7 +79,7 @@ export default function Home() {
                                 <div className="space-y-4 animate-in fade-in slide-in-from-bottom-10 delay-400 duration-700">
                                     <h2 className="font-headline text-5xl font-bold text-primary-foreground drop-shadow-lg">Happy Birthday!</h2>
                                     <p className="text-3xl font-semibold text-accent drop-shadow-md">{name}</p>
-                                    <p className="text-xl text-primary-foreground/80">{age > 0 ? `${age} Years of Awesome!` : ''}</p>
+                                    <p className="text-xl text-primary-foreground/80">{age > 0 ? `Turning ${age}!` : ''}</p>
                                     <p className="pt-4 text-lg leading-relaxed text-primary-foreground/90">
                                         "{message}"
                                     </p>
