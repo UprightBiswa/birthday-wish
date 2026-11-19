@@ -5,12 +5,6 @@
       "description": "A festive background with a birthday cake",
       "imageUrl": "https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxiaXJ0aGRheSUyMGNha2V8ZW58MHx8fHwxNzYxMzMwOTU5fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "birthday cake"
-    },
-    {
-      "id": "birthday-person-avatar",
-      "description": "An avatar for the birthday person",
-      "imageUrl": "https://krepl.indigidigital.in/tada_attachments/tada_1761501120.jpg",
-      "imageHint": "person"
     }
   ]
 }
