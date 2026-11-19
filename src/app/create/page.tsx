@@ -138,7 +138,7 @@ export default function Home() {
             <div>
               <Label htmlFor="image">Image Upload</Label>
               <Input id="image" type="file" accept="image/*" {...register('image')} />
-              {errors.image && <p className="text-red-500 text-sm">{errors.image.message}</p>}
+              {errors.image && <p className="text-red-500 text-sm">{String(errors.image.message)}</p>}
             </div>
 
             <div>
