@@ -10,11 +10,19 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['Poppins', 'sans-serif'],
-        headline: ['Poppins', 'sans-serif'],
+        body: ['var(--font-body)', 'system-ui', 'sans-serif'],
+        headline: ['var(--font-body)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-display)', 'Georgia', 'serif'],
+        hand: ['var(--font-hand)', 'cursive'],
         code: ['monospace'],
       },
       colors: {
+        night: '#0e0a07',
+        coal: '#1a130e',
+        ember: '#ff7a2f',
+        gold: '#f2c46d',
+        cream: '#f6ecdc',
+        paper: '#f3e7d3',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {

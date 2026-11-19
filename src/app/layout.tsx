@@ -1,10 +1,34 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
+import { Instrument_Serif, Manrope, Caveat } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 
+const display = Instrument_Serif({
+  subsets: ['latin'],
+  weight: '400',
+  style: ['normal', 'italic'],
+  variable: '--font-display',
+});
+
+const body = Manrope({
+  subsets: ['latin'],
+  variable: '--font-body',
+});
+
+const hand = Caveat({
+  subsets: ['latin'],
+  variable: '--font-hand',
+});
+
 export const metadata: Metadata = {
-  title: 'Birthday Wishes Creator',
-  description: 'Create and share beautiful birthday wishes.',
+  title: 'Happy Birthday, Suman',
+  description: 'A little something, made just for you.',
+};
+
+export const viewport: Viewport = {
+  themeColor: '#0e0a07',
+  width: 'device-width',
+  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -13,15 +37,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang="en" className={`dark ${display.variable} ${body.variable} ${hand.variable}`}>
       <body className="font-body antialiased">
         {children}
         <Toaster />
