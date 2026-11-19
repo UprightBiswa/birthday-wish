@@ -17,12 +17,15 @@ export default {
         code: ['monospace'],
       },
       colors: {
-        night: '#0e0a07',
-        coal: '#1a130e',
-        ember: '#ff7a2f',
-        gold: '#f2c46d',
-        cream: '#f6ecdc',
-        paper: '#f3e7d3',
+        // per-person palette, set by .theme-* classes in globals.css
+        night: 'rgb(var(--c-night) / <alpha-value>)',
+        coal: 'rgb(var(--c-coal) / <alpha-value>)',
+        ember: 'rgb(var(--c-ember) / <alpha-value>)',
+        gold: 'rgb(var(--c-gold) / <alpha-value>)',
+        glow: 'rgb(var(--c-glow) / <alpha-value>)',
+        cream: 'rgb(var(--c-cream) / <alpha-value>)',
+        paper: 'rgb(var(--c-paper) / <alpha-value>)',
+        sign: 'rgb(var(--c-sign) / <alpha-value>)',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {

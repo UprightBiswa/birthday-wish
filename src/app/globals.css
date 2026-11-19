@@ -6,7 +6,32 @@ html {
   scroll-behavior: smooth;
 }
 
-/* ---------- Suman birthday page ---------- */
+/* ---------- Birthday pages ---------- */
+
+/* campfire: night, ember orange, warm gold */
+:root,
+.theme-ember {
+  --c-night: 14 10 7;
+  --c-coal: 26 19 14;
+  --c-ember: 255 122 47;
+  --c-gold: 242 196 109;
+  --c-glow: 255 226 168;
+  --c-cream: 246 236 220;
+  --c-paper: 243 231 211;
+  --c-sign: 138 74 34;
+}
+
+/* marigold: deep maroon, marigold yellow, rani pink */
+.theme-marigold {
+  --c-night: 24 8 12;
+  --c-coal: 40 14 21;
+  --c-ember: 232 69 110;
+  --c-gold: 245 184 46;
+  --c-glow: 255 224 150;
+  --c-cream: 255 241 224;
+  --c-paper: 253 242 224;
+  --c-sign: 160 32 70;
+}
 
 .grain::after {
   content: '';
@@ -28,7 +53,7 @@ html {
   position: absolute;
   bottom: -10px;
   border-radius: 9999px;
-  background: radial-gradient(circle, #ffd28a 0%, #ff7a2f 55%, transparent 70%);
+  background: radial-gradient(circle, rgb(var(--c-glow)) 0%, rgb(var(--c-ember)) 55%, transparent 70%);
   filter: blur(0.3px);
   animation: ember-rise linear infinite;
   will-change: transform, opacity;
@@ -102,8 +127,8 @@ html {
 
 /* gate */
 @keyframes soft-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(242, 196, 109, 0.35); }
-  50% { box-shadow: 0 0 0 14px rgba(242, 196, 109, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgb(var(--c-gold) / 0.35); }
+  50% { box-shadow: 0 0 0 14px rgb(var(--c-gold) / 0); }
 }
 .pulse-ring { animation: soft-pulse 2.2s ease-in-out infinite; }
 
@@ -212,4 +237,24 @@ html {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* flip cards (20 wishes) */
+.flip { perspective: 900px; }
+.flip-inner {
+  position: relative;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.flip.is-open .flip-inner { transform: rotateY(180deg); }
+.flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-back { transform: rotateY(180deg); }
+@media (prefers-reduced-motion: reduce) {
+  .flip-inner { transition: none; }
 }

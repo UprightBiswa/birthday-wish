@@ -20,13 +20,20 @@ const hand = Caveat({
   variable: '--font-hand',
 });
 
+// Absolute base for share-preview images. Vercel provides the production domain at build time.
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : 'http://localhost:9002');
+
 export const metadata: Metadata = {
-  title: 'Happy Birthday, Suman',
+  metadataBase: new URL(siteUrl),
+  title: 'Birthday wishes',
   description: 'A little something, made just for you.',
 };
 
 export const viewport: Viewport = {
-  themeColor: '#0e0a07',
   width: 'device-width',
   initialScale: 1,
 };

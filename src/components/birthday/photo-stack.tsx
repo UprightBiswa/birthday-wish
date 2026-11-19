@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 
-export type Photo = { src: string; caption: string; position?: string };
+import type { Photo } from '@/lib/people';
 
 const TILTS = [-4, 3, -2, 5];
 
@@ -89,6 +89,8 @@ export default function PhotoStack({ photos }: { photos: Photo[] }) {
           })}
       </div>
 
+      {photos.length > 1 && (
+      <>
       <div className="mt-10 flex items-center gap-2">
         {photos.map((_, i) => (
           <span
@@ -98,6 +100,8 @@ export default function PhotoStack({ photos }: { photos: Photo[] }) {
         ))}
       </div>
       <p className="mt-3 text-xs uppercase tracking-[0.2em] text-cream/40">Swipe or tap</p>
+      </>
+      )}
     </div>
   );
 }

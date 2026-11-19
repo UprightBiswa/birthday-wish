@@ -4,12 +4,9 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Mic, MicOff, RotateCcw } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-const CANDLES = 7;
-const CANDLE_COLORS = ['#f2c46d', '#ff7a2f', '#f6ecdc', '#e9a3a3', '#f2c46d', '#ff7a2f', '#f6ecdc'];
+type Props = { count: number; colors: string[]; topper?: string; onAllOut: () => void };
 
-type Props = { onAllOut: () => void };
-
-export default function CandleGame({ onAllOut }: Props) {
+export default function CandleGame({ count: CANDLES, colors: CANDLE_COLORS, topper, onAllOut }: Props) {
   const [lit, setLit] = useState<boolean[]>(() => Array(CANDLES).fill(true));
   const [puffs, setPuffs] = useState<number[]>([]);
   const [micOn, setMicOn] = useState(false);
@@ -112,7 +109,7 @@ export default function CandleGame({ onAllOut }: Props) {
         {/* warm glow behind */}
         <div
           className={cn(
-            'absolute -inset-10 -top-24 rounded-full bg-[radial-gradient(closest-side,rgba(255,150,60,0.35),transparent)] transition-opacity duration-700',
+            'absolute -inset-10 -top-24 rounded-full bg-[radial-gradient(closest-side,rgb(var(--c-ember)/0.35),transparent)] transition-opacity duration-700',
             remaining === 0 ? 'opacity-0' : 'opacity-100'
           )}
         />
@@ -131,11 +128,11 @@ export default function CandleGame({ onAllOut }: Props) {
                 className="relative block w-[10px] rounded-t-[3px]"
                 style={{
                   height: 44 + (i % 2) * 8,
-                  background: `repeating-linear-gradient(135deg, ${CANDLE_COLORS[i]} 0 6px, rgba(255,255,255,0.75) 6px 10px)`,
+                  background: `repeating-linear-gradient(135deg, ${CANDLE_COLORS[i % CANDLE_COLORS.length]} 0 6px, rgba(255,255,255,0.75) 6px 10px)`,
                 }}
               >
                 <span className="absolute -top-[6px] left-1/2 h-[7px] w-[2px] -translate-x-1/2 bg-[#3a2a1e]" />
-                <span className={cn('flame -mb-[4px]', !on && 'out')} style={{ bottom: 'calc(100% + 4px)' }} />
+                <span className={cn('flame', !on && 'out')} style={{ bottom: 'calc(100% + 4px)' }} />
                 {puffs.includes(i) && !on && <span className="smoke" style={{ bottom: 'calc(100% + 8px)' }} />}
               </span>
             </button>
@@ -152,7 +149,13 @@ export default function CandleGame({ onAllOut }: Props) {
               ))}
             </div>
           </div>
-          <div className="h-24 bg-gradient-to-b from-[#6b3b22] to-[#4a2616]" />
+          <div className="relative flex h-24 items-center justify-center bg-gradient-to-b from-[#6b3b22] to-[#4a2616]">
+            {topper && (
+              <span className="font-display text-6xl italic leading-none text-[#f6ecdc] drop-shadow-[0_2px_0_rgba(0,0,0,0.25)]">
+                {topper}
+              </span>
+            )}
+          </div>
           <div className="h-2 bg-[#f2c46d]/80" />
           <div className="h-16 rounded-b-[10px] bg-gradient-to-b from-[#5a2f1b] to-[#3b1f12]" />
           <div className="mx-[-8%] h-3 rounded-full bg-[#2a1d14] shadow-[0_18px_40px_-10px_rgba(0,0,0,0.8)]" />
