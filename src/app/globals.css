@@ -258,3 +258,41 @@ html {
 @media (prefers-reduced-motion: reduce) {
   .flip-inner { transition: none; }
 }
+
+/* voyage: deep sea night, coral pink, sand gold (travel) */
+.theme-voyage {
+  --c-night: 11 24 32;
+  --c-coal: 19 38 49;
+  --c-ember: 240 98 120;
+  --c-gold: 242 200 140;
+  --c-glow: 255 222 205;
+  --c-cream: 255 243 233;
+  --c-paper: 252 245 236;
+  --c-sign: 190 60 92;
+}
+
+/* passport stamp thump */
+@keyframes stamp-in {
+  0% { opacity: 0; transform: scale(1.8) rotate(var(--rot, -8deg)); }
+  60% { opacity: 1; transform: scale(0.94) rotate(var(--rot, -8deg)); }
+  100% { opacity: 1; transform: scale(1) rotate(var(--rot, -8deg)); }
+}
+.stamp-in { animation: stamp-in 0.45s cubic-bezier(0.3, 0.7, 0.3, 1.2) both; }
+
+/* boarding pass perforation */
+.perforated {
+  background-image: radial-gradient(circle, rgb(var(--c-night)) 5px, transparent 5.5px);
+  background-size: 100% 18px;
+  background-repeat: repeat-y;
+  background-position: center;
+}
+
+@keyframes plane-fly {
+  0% { transform: translateX(-10%); }
+  100% { transform: translateX(10%); }
+}
+.plane-fly { animation: plane-fly 2.4s ease-in-out infinite alternate; }
+
+@media (prefers-reduced-motion: reduce) {
+  .stamp-in, .plane-fly { animation: none; }
+}
