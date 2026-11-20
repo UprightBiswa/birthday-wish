@@ -14,6 +14,8 @@ import PhotoStack from './photo-stack';
 import CandleGame from './candle-game';
 import WishGrid from './wish-grid';
 import CountdownScreen from './countdown-screen';
+import BoardingPass from './boarding-pass';
+import PassportStamps from './passport-stamps';
 
 const COUNTDOWN_WINDOW_DAYS = 45;
 
@@ -219,6 +221,20 @@ export default function BirthdayPage({ person: p }: { person: Person }) {
         </div>
       </div>
 
+      {/* ---------- BOARDING PASS ---------- */}
+      {p.boardingPass && (
+        <section className="relative overflow-hidden px-5 pt-24 sm:pt-32">
+          <div className="mx-auto max-w-xl">
+            <Reveal>
+              <p className="text-[11px] uppercase tracking-[0.35em] text-gold/80">Your ticket</p>
+            </Reveal>
+            <Reveal delay={120} className="mt-6">
+              <BoardingPass pass={p.boardingPass} />
+            </Reveal>
+          </div>
+        </section>
+      )}
+
       {/* ---------- LETTER ---------- */}
       <section id="letter" className="relative px-5 py-24 sm:py-32">
         <div className="mx-auto max-w-xl">
@@ -250,6 +266,20 @@ export default function BirthdayPage({ person: p }: { person: Person }) {
             </Reveal>
             <Reveal delay={150}>
               <PhotoStack photos={p.photos.items} />
+            </Reveal>
+          </div>
+        </section>
+      )}
+
+      {/* ---------- PASSPORT GAME ---------- */}
+      {p.stamps && (
+        <section className="relative px-5 py-24 sm:py-32">
+          <div className="mx-auto max-w-2xl">
+            <Reveal className="mb-12">
+              <SectionHead eyebrow={p.stamps.eyebrow} title={p.stamps.title} text={p.stamps.text} />
+            </Reveal>
+            <Reveal delay={150}>
+              <PassportStamps items={p.stamps.items} onAllStamped={celebrate} />
             </Reveal>
           </div>
         </section>

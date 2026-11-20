@@ -12,7 +12,7 @@ export type Person = {
   heroLine: string;
   /** month is 1-12. Before this day the page shows a countdown, from midnight it celebrates. */
   birthday: { month: number; day: number };
-  theme: 'ember' | 'marigold';
+  theme: 'ember' | 'marigold' | 'voyage';
   themeColor: string;
   hero: { src: string; alt: string; position: string; positionDesktop?: string };
   ogImage: string;
@@ -22,6 +22,23 @@ export type Person = {
   photos?: { eyebrow: string; title: [string, string]; text: string; items: Photo[] };
   video?: { src: string; eyebrow: string; title: [string, string]; text: string };
   wishes?: { eyebrow: string; title: [string, string]; text: string; items: string[] };
+  /** travel extras */
+  boardingPass?: {
+    passenger: string;
+    from: { code: string; city: string };
+    to: { code: string; city: string };
+    flight: string;
+    gate: string;
+    seat: string;
+    boards: string;
+    note: string;
+  };
+  stamps?: {
+    eyebrow: string;
+    title: [string, string];
+    text: string;
+    items: { place: string; code: string; note: string; visited?: boolean }[];
+  };
   cake: { candles: number; candleColors: string[]; topper?: string };
   outro: [string, string];
   confetti: string[];
@@ -149,6 +166,76 @@ export const PEOPLE: Person[] = [
     },
     outro: ['Twenty and', 'thriving'],
     confetti: ['#f5b82e', '#e8456e', '#fff1e0', '#ffd98a', '#ff9ab3'],
+  },
+  {
+    slug: 'rupsha',
+    name: 'Rupsha',
+    shortName: 'Rupsha',
+    heroLine: 'Happy birthday,',
+    birthday: { month: 11, day: 20 },
+    theme: 'voyage',
+    themeColor: '#0b1820',
+    hero: {
+      src: '/rupsha/rupsha-cake.jpg',
+      alt: 'Rupsha smiling behind her birthday cake',
+      position: '50% 28%',
+      positionDesktop: '50% 22%',
+    },
+    ogImage: '/og/rupsha.jpg',
+    eyebrow: 'Now boarding: your best year',
+    marquee: ['happy birthday', 'rupsha', 'window seat, always', 'next stop: everywhere', 'daydreamer who never quits'],
+    boardingPass: {
+      passenger: 'RUPSHA',
+      from: { code: 'OLD', city: 'Last year' },
+      to: { code: 'NXT', city: 'Best year yet' },
+      flight: 'HBD 20/11',
+      gate: 'Today',
+      seat: 'Window',
+      boards: 'Right now',
+      note: 'Baggage allowance: unlimited dreams. Cake on board.',
+    },
+    letter: {
+      greeting: 'Rupsha,',
+      paragraphs: [
+        "Happy birthday to the girl who treats every holiday like a boarding call. One trip it's a waterfall in Mizoram, the next it's Kuala Lumpur, and somehow there's always time for cake. We have photographic evidence.",
+        'I hope this year hands you a passport full of new stamps: places you have been daydreaming about, mornings with a view, and people who make the road better than the destination.',
+        'Keep daydreaming. You never quit, and it shows. And always keep the window seat. You have earned it.',
+        'Happy birthday. Have the best trip around the sun.',
+      ],
+      signoff: 'with love',
+    },
+    photos: {
+      eyebrow: 'Birthday diaries',
+      title: ['Cake, candles,', 'that smile.'],
+      text: 'Every trip is better with her, and so is every birthday table.',
+      items: [
+        { src: '/rupsha/rupsha-cake.jpg', caption: 'make a wish', position: '50% 30%' },
+        { src: '/rupsha/rupsha-first-bite.jpg', caption: 'first bite rules', position: '50% 30%' },
+        { src: '/rupsha/rupsha-family.jpg', caption: 'the home team', position: '50% 35%' },
+        { src: '/rupsha/rupsha-table.jpg', caption: 'table is set', position: '50% 35%' },
+      ],
+    },
+    stamps: {
+      eyebrow: 'Passport',
+      title: ['Stamp your', 'next year.'],
+      text: 'Two you have already earned, six wishes for where to next. Tap each one to stamp it.',
+      items: [
+        { place: 'Mizoram', code: 'MZR', note: 'Already conquered. Waterfall dip included.', visited: true },
+        { place: 'Kuala Lumpur', code: 'KUL', note: 'From one day to day one.', visited: true },
+        { place: 'Ladakh', code: 'IXL', note: 'Mountains, open roads, endless sky.' },
+        { place: 'Bali', code: 'DPS', note: 'Sunsets that look edited but are not.' },
+        { place: 'Swiss Alps', code: 'ZRH', note: 'Snow, trains, and too much chocolate.' },
+        { place: 'Japan', code: 'NRT', note: 'Cherry blossoms in spring.' },
+        { place: 'Iceland', code: 'KEF', note: 'Chasing the northern lights.' },
+        { place: 'Anywhere', code: 'ANY', note: 'Wherever your heart books next.' },
+      ],
+    },
+    cake: {
+      candles: 5,
+      candleColors: ['#f06278', '#7fd1c7', '#fff1e6', '#f2c88c', '#f06278'],
+    },
+    outro: ['Bon voyage,', 'birthday girl'],
+    confetti: ['#f06278', '#7fd1c7', '#f2c88c', '#fff1e6', '#ff9fb0'],
   },
 ];
 
